@@ -1,2 +1,6 @@
 .idea
 target
+utility
+.DS_Store
+src/main/webapp/static
+src/main/webapp/templates

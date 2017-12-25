@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.leon.forum.dao.UsersMapper">
+  <resultMap id="BaseResultMap" type="com.leon.forum.model.Users">
+    <id column="userid" jdbcType="INTEGER" property="userid" />
+    <result column="username" jdbcType="VARCHAR" property="username" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="usertype" jdbcType="INTEGER" property="usertype" />
+    <result column="credit" jdbcType="INTEGER" property="credit" />
+    <result column="lastvisit" jdbcType="TIMESTAMP" property="lastvisit" />
+    <result column="lastip" jdbcType="VARCHAR" property="lastip" />
+    <result column="auth" jdbcType="VARCHAR" property="auth" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    userid, username, password, usertype, credit, lastvisit, lastip, auth
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from users
+    where userid = #{userid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from users
+    where userid = #{userid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.leon.forum.model.Users">
+    insert into users (userid, username, password, 
+      usertype, credit, lastvisit, 
+      lastip, auth)
+    values (#{userid,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+      #{usertype,jdbcType=INTEGER}, #{credit,jdbcType=INTEGER}, #{lastvisit,jdbcType=TIMESTAMP}, 
+      #{lastip,jdbcType=VARCHAR}, #{auth,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.leon.forum.model.Users">
+    insert into users
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userid != null">
+        userid,
+      </if>
+      <if test="username != null">
+        username,
+      </if>
+      <if test="password != null">
+        password,
+      </if>
+      <if test="usertype != null">
+        usertype,
+      </if>
+      <if test="credit != null">
+        credit,
+      </if>
+      <if test="lastvisit != null">
+        lastvisit,
+      </if>
+      <if test="lastip != null">
+        lastip,
+      </if>
+      <if test="auth != null">
+        auth,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userid != null">
+        #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="username != null">
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="usertype != null">
+        #{usertype,jdbcType=INTEGER},
+      </if>
+      <if test="credit != null">
+        #{credit,jdbcType=INTEGER},
+      </if>
+      <if test="lastvisit != null">
+        #{lastvisit,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastip != null">
+        #{lastip,jdbcType=VARCHAR},
+      </if>
+      <if test="auth != null">
+        #{auth,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.leon.forum.model.Users">
+    update users
+    <set>
+      <if test="username != null">
+        username = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="usertype != null">
+        usertype = #{usertype,jdbcType=INTEGER},
+      </if>
+      <if test="credit != null">
+        credit = #{credit,jdbcType=INTEGER},
+      </if>
+      <if test="lastvisit != null">
+        lastvisit = #{lastvisit,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastip != null">
+        lastip = #{lastip,jdbcType=VARCHAR},
+      </if>
+      <if test="auth != null">
+        auth = #{auth,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where userid = #{userid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.leon.forum.model.Users">
+    update users
+    set username = #{username,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      usertype = #{usertype,jdbcType=INTEGER},
+      credit = #{credit,jdbcType=INTEGER},
+      lastvisit = #{lastvisit,jdbcType=TIMESTAMP},
+      lastip = #{lastip,jdbcType=VARCHAR},
+      auth = #{auth,jdbcType=VARCHAR}
+    where userid = #{userid,jdbcType=INTEGER}
+  </update>
+</mapper>

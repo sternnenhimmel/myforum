@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.leon.forum.dao.PostMapper">
+  <resultMap id="BaseResultMap" type="com.leon.forum.model.Post">
+    <id column="postid" jdbcType="INTEGER" property="postid" />
+    <result column="boardid" jdbcType="INTEGER" property="boardid" />
+    <result column="posttitle" jdbcType="VARCHAR" property="posttitle" />
+    <result column="posttext" jdbcType="VARCHAR" property="posttext" />
+    <result column="createtime" jdbcType="TIMESTAMP" property="createtime" />
+    <result column="lastmodifiedtime" jdbcType="TIMESTAMP" property="lastmodifiedtime" />
+    <result column="replies" jdbcType="INTEGER" property="replies" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    postid, boardid, posttitle, posttext, createtime, lastmodifiedtime, replies
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from post
+    where postid = #{postid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from post
+    where postid = #{postid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.leon.forum.model.Post">
+    insert into post (postid, boardid, posttitle, 
+      posttext, createtime, lastmodifiedtime, 
+      replies)
+    values (#{postid,jdbcType=INTEGER}, #{boardid,jdbcType=INTEGER}, #{posttitle,jdbcType=VARCHAR}, 
+      #{posttext,jdbcType=VARCHAR}, #{createtime,jdbcType=TIMESTAMP}, #{lastmodifiedtime,jdbcType=TIMESTAMP}, 
+      #{replies,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.leon.forum.model.Post">
+    insert into post
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="postid != null">
+        postid,
+      </if>
+      <if test="boardid != null">
+        boardid,
+      </if>
+      <if test="posttitle != null">
+        posttitle,
+      </if>
+      <if test="posttext != null">
+        posttext,
+      </if>
+      <if test="createtime != null">
+        createtime,
+      </if>
+      <if test="lastmodifiedtime != null">
+        lastmodifiedtime,
+      </if>
+      <if test="replies != null">
+        replies,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="postid != null">
+        #{postid,jdbcType=INTEGER},
+      </if>
+      <if test="boardid != null">
+        #{boardid,jdbcType=INTEGER},
+      </if>
+      <if test="posttitle != null">
+        #{posttitle,jdbcType=VARCHAR},
+      </if>
+      <if test="posttext != null">
+        #{posttext,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null">
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastmodifiedtime != null">
+        #{lastmodifiedtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="replies != null">
+        #{replies,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.leon.forum.model.Post">
+    update post
+    <set>
+      <if test="boardid != null">
+        boardid = #{boardid,jdbcType=INTEGER},
+      </if>
+      <if test="posttitle != null">
+        posttitle = #{posttitle,jdbcType=VARCHAR},
+      </if>
+      <if test="posttext != null">
+        posttext = #{posttext,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null">
+        createtime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastmodifiedtime != null">
+        lastmodifiedtime = #{lastmodifiedtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="replies != null">
+        replies = #{replies,jdbcType=INTEGER},
+      </if>
+    </set>
+    where postid = #{postid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.leon.forum.model.Post">
+    update post
+    set boardid = #{boardid,jdbcType=INTEGER},
+      posttitle = #{posttitle,jdbcType=VARCHAR},
+      posttext = #{posttext,jdbcType=VARCHAR},
+      createtime = #{createtime,jdbcType=TIMESTAMP},
+      lastmodifiedtime = #{lastmodifiedtime,jdbcType=TIMESTAMP},
+      replies = #{replies,jdbcType=INTEGER}
+    where postid = #{postid,jdbcType=INTEGER}
+  </update>
+</mapper>
